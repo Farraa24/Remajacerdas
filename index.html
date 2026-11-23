@@ -8,18 +8,26 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<script>
+(function(){var t;try{t=localStorage.getItem("tema")}catch(e){}
+if(!t)t=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";
+document.documentElement.setAttribute("data-tema",t);})();
+</script>
 <style>
 :root{
   --biru:#2563eb; --biru-tua:#1e3a8a; --pink:#db2777; --pink-muda:#fce7f3; --biru-muda:#dbeafe;
-  --teks:#172036; --abu:#52607a; --putih:#fff;
+  --teks:#172036; --abu:#52607a; --putih:#fff; --bg:#fff; --kartu:#fff; --biru-t:#2563eb; --h3a:#1e3a8a; --pink-t:#db2777;
   --grad:linear-gradient(135deg,var(--biru) 0%,#7c5ce6 50%,var(--pink) 100%);
   --judul:"Bricolage Grotesque","Trebuchet MS",sans-serif;
   --badan:"Plus Jakarta Sans","Segoe UI",Arial,sans-serif;
 }
+html[data-tema="dark"]{color-scheme:dark;--teks:#e7ebf5;--abu:#aab5cc;--bg:#0f1424;--kartu:#1a2138;--biru-muda:#1d2c57;--pink-muda:#3b2142;--biru-t:#8fb0ff;--h3a:#9db9ff;--pink-t:#f472b6}
+html[data-tema="dark"] #umpanBalik strong.benar{color:#4ade80}
+html[data-tema="dark"] #umpanBalik strong.salah{color:#f87171}
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
-body{font-family:var(--badan);color:var(--teks);line-height:1.65;background:#fff}
+body{font-family:var(--badan);color:var(--teks);line-height:1.65;background:var(--bg)}
 a{color:inherit}
 :focus-visible{outline:3px solid #f59e0b;outline-offset:3px}
 .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
@@ -31,21 +39,26 @@ header .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justif
 nav{display:flex;flex-wrap:wrap;gap:6px 22px}
 nav a{text-decoration:none;font-weight:500;padding:4px 0;border-bottom:2px solid transparent}
 nav a:hover{border-color:#fff}
+.tema{background:transparent;color:#fff;border:2px solid #fff;border-radius:999px;padding:3px 14px;font:inherit;font-weight:500;cursor:pointer}
+.tema:hover{background:rgba(255,255,255,.2)}
+.cari{width:100%;max-width:440px;padding:12px 18px;border-radius:999px;border:2px solid var(--biru-t);background:var(--kartu);color:var(--teks);font:inherit}
+.cari::placeholder{color:var(--abu)}
+.info{min-height:1.6em;margin:10px 0 18px;color:var(--abu);font-size:.95rem}
 .hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;padding:44px 20px 72px}
 h1{font-family:var(--judul);font-weight:800;font-size:clamp(2.2rem,5.5vw,3.8rem);line-height:1.08;margin-bottom:18px}
 .hero p.lead{font-size:1.1rem;max-width:34ch;margin-bottom:26px}
 .btn{display:inline-block;background:#fff;color:var(--biru-tua);font-weight:700;padding:12px 24px;border-radius:999px;text-decoration:none;border:0;cursor:pointer;font:inherit;font-weight:700}
-.btn:hover{background:var(--pink-muda)}
+.btn:hover{background:#fce7f3}
 
 /* kuis */
-.kuis{background:#fff;color:var(--teks);border-radius:20px;padding:26px;box-shadow:0 18px 40px rgba(23,32,54,.28)}
+.kuis{background:var(--kartu);color:var(--teks);border-radius:20px;padding:26px;box-shadow:0 18px 40px rgba(23,32,54,.28)}
 .kuis h2{font-family:var(--judul);font-size:1.3rem;margin-bottom:4px}
 .kuis .sub{color:var(--abu);font-size:.9rem;margin-bottom:16px}
 #pernyataan{font-size:1.15rem;font-weight:700;min-height:4.6em}
 .pilih{display:flex;gap:12px;margin:16px 0}
-.pilih button{flex:1;padding:12px;border-radius:12px;border:2px solid;font:inherit;font-weight:700;cursor:pointer;background:#fff}
-#btnMitos{border-color:var(--pink);color:var(--pink)}
-#btnFakta{border-color:var(--biru);color:var(--biru)}
+.pilih button{flex:1;padding:12px;border-radius:12px;border:2px solid;font:inherit;font-weight:700;cursor:pointer;background:var(--kartu)}
+#btnMitos{border-color:var(--pink-t);color:var(--pink-t)}
+#btnFakta{border-color:var(--biru-t);color:var(--biru-t)}
 #btnMitos:hover:not(:disabled){background:var(--pink-muda)}
 #btnFakta:hover:not(:disabled){background:var(--biru-muda)}
 .pilih button:disabled{opacity:.55;cursor:default}
@@ -61,14 +74,15 @@ section{padding:64px 0}
 h2.judul{font-family:var(--judul);font-size:clamp(1.7rem,3.5vw,2.3rem);line-height:1.15;margin-bottom:10px}
 .intro{color:var(--abu);max-width:60ch;margin-bottom:34px}
 .baris{display:grid;grid-template-columns:260px 1fr;gap:10px 40px;padding:22px 0;border-top:2px solid var(--biru-muda)}
-.baris:nth-child(even){border-top-color:var(--pink-muda)}
-.baris h3{font-family:var(--judul);font-size:1.25rem;color:var(--biru-tua)}
-.baris:nth-child(even) h3{color:var(--pink)}
+.baris[hidden]{display:none}
+.baris.genap{border-top-color:var(--pink-muda)}
+.baris h3{font-family:var(--judul);font-size:1.25rem;color:var(--h3a)}
+.baris.genap h3{color:var(--pink-t)}
 .baris p{max-width:62ch}
 
 .band{background:linear-gradient(180deg,var(--biru-muda),var(--pink-muda))}
 .kegiatan{list-style:none;padding:0;display:grid;gap:14px;max-width:640px}
-.kegiatan li{background:#fff;border-radius:14px;padding:16px 20px;border-left:6px solid var(--biru)}
+.kegiatan li{background:var(--kartu);border-radius:14px;padding:16px 20px;border-left:6px solid var(--biru)}
 .kegiatan li:nth-child(even){border-left-color:var(--pink)}
 .kegiatan b{display:block}
 .kontak a{display:inline-block;margin:6px 10px 6px 0;padding:10px 20px;border-radius:999px;background:var(--grad);color:#fff;font-weight:700;text-decoration:none}
@@ -91,6 +105,7 @@ footer{background:var(--biru-tua);color:#dbe4ff;padding:26px 0;font-size:.9rem}
         <a href="#materi">Materi</a>
         <a href="#kegiatan">Kegiatan PIK-R</a>
         <a href="#kontak">Kontak</a>
+        <button class="tema" id="tema" type="button" aria-pressed="false">Mode gelap</button>
       </nav>
     </div>
   </header>
@@ -125,6 +140,11 @@ footer{background:var(--biru-tua);color:#dbe4ff;padding:26px 0;font-size:.9rem}
     <h2 class="judul">Materi untuk remaja</h2>
     <p class="intro">Materi mengikuti substansi Program Generasi Berencana (GenRe) dari BKKBN. Kalau ada yang bikin bingung, tanyakan ke kakak pendamping PIK-R atau tenaga kesehatan.</p>
 
+    <label for="cari" class="intro" style="display:block;margin-bottom:8px">Cari materi</label>
+    <input class="cari" id="cari" type="search" placeholder="Contoh: HIV, gizi, menikah" autocomplete="off">
+    <p class="info" id="infoCari" aria-live="polite"></p>
+
+    <div id="daftar">
     <div class="baris">
       <h3>Pendewasaan Usia Perkawinan (PUP)</h3>
       <p>PUP adalah upaya menunda pernikahan sampai siap secara fisik, mental, pendidikan, dan ekonomi. Undang-undang menetapkan batas usia minimal menikah 19 tahun, sedangkan BKKBN menganjurkan usia ideal minimal 21 tahun untuk perempuan dan 25 tahun untuk laki-laki. Menikah terlalu muda berisiko bagi kesehatan ibu dan bayi, putus sekolah, dan kesulitan ekonomi.</p>
@@ -160,6 +180,7 @@ footer{background:var(--biru-tua);color:#dbe4ff;padding:26px 0;font-size:.9rem}
     <div class="baris">
       <h3>Gizi dan pencegahan stunting</h3>
       <p>Remaja putri yang sehat dan tidak anemia kelak lebih siap menjadi ibu yang sehat, sehingga membantu mencegah stunting pada anak. Biasakan sarapan, makan sayur, buah, dan protein, serta minum tablet tambah darah sesuai anjuran.</p>
+    </div>
     </div>
     <p class="intro" style="margin-top:22px;margin-bottom:0;font-size:.9rem">Rujukan: Program Generasi Berencana (GenRe) dan Pedoman Pengelolaan PIK-R/M, BKKBN. Isi ringkasan ini ditulis ulang untuk edukasi umum.</p>
   </div>
@@ -244,6 +265,37 @@ $("btnMitos").onclick = () => jawab(false);
 $("btnFakta").onclick = () => jawab(true);
 $("btnLanjut").onclick = lanjut;
 tampil();
+
+/* Mode gelap */
+const tombolTema = $("tema");
+function labelTema(){
+  const gelap = document.documentElement.getAttribute("data-tema") === "dark";
+  tombolTema.textContent = gelap ? "Mode terang" : "Mode gelap";
+  tombolTema.setAttribute("aria-pressed", gelap);
+}
+tombolTema.onclick = () => {
+  const baru = document.documentElement.getAttribute("data-tema") === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-tema", baru);
+  try{ localStorage.setItem("tema", baru); }catch(e){}
+  labelTema();
+};
+labelTema();
+
+/* Pencarian materi */
+const kolomCari = $("cari"), daftar = [...document.querySelectorAll("#daftar .baris")], info = $("infoCari");
+function saring(){
+  const teks = kolomCari.value.trim(), k = teks.toLowerCase();
+  let n = 0;
+  daftar.forEach(b => {
+    const cocok = !k || b.textContent.toLowerCase().includes(k);
+    b.hidden = !cocok;
+    b.classList.remove("genap");
+    if(cocok){ if(n % 2) b.classList.add("genap"); n++; }
+  });
+  info.textContent = !k ? "" : (n === 0 ? "Materi “" + teks + "” tidak ditemukan. Coba kata kunci lain." : n + " materi ditemukan.");
+}
+kolomCari.addEventListener("input", saring);
+saring();
 </script>
 </body>
 </html>
